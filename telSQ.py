@@ -42,14 +42,14 @@ TARGET_EVENT_NAMES_LIST = [
     # 'Chinese Grand Prix', 
     # 'French Grand Prix', 
     # 'German Grand Prix',
-    'Hungarian Grand Prix',
+    # 'Hungarian Grand Prix',
     # 'Italian Grand Prix',
     # 'Japanese Grand Prix', 
     # 'Mexican Grand Prix', 
     # 'Monaco Grand Prix',
     # 'Russian Grand Prix', 
     # 'Singapore Grand Prix', 
-    # 'Spanish Grand Prix', 
+    'Spanish Grand Prix', 
     # 'United States Grand Prix', 
           ]
 if len(TARGET_EVENT_NAMES_LIST) != 1:
