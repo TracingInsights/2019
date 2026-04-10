@@ -34,14 +34,14 @@ import requests
 DEFAULT_YEAR = 2019
 # Keep exactly one uncommented event in this list.
 TARGET_EVENT_NAMES_LIST = [
-    'Abu Dhabi Grand Prix',
-    'Australian Grand Prix', 
-    'Austrian Grand Prix', 
-    'Azerbaijan Grand Prix',
-    'Bahrain Grand Prix',
-    'Belgian Grand Prix',
-    'Brazilian Grand Prix', 
-    'British Grand Prix',
+    # 'Abu Dhabi Grand Prix',
+    # 'Australian Grand Prix', 
+    # 'Austrian Grand Prix', 
+    # 'Azerbaijan Grand Prix',
+    # 'Bahrain Grand Prix',
+    # 'Belgian Grand Prix',
+    # 'Brazilian Grand Prix', 
+    # 'British Grand Prix',
     'Canadian Grand Prix',
     'Chinese Grand Prix', 
     'French Grand Prix', 
