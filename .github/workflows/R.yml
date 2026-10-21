@@ -14,18 +14,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository (scripts only)
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 1
           sparse-checkout: |
             cache/1.txt
             cache_preseason/1.txt
             requirements.txt
-            telR.py            
+            R.py            
             utils.py
+            sections/
+            .github/actions/tailscale-exit-node
+            .github/actions/f1-auth
           sparse-checkout-cone-mode: false    
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: '3.13'
 
@@ -39,13 +42,27 @@ jobs:
         run: |
           uv pip install --system -r requirements.txt
 
+      - name: F1 TV authentication for FastF1
+        uses: ./.github/actions/f1-auth
+        with:
+          token-json: ${{ secrets.F1AUTH_TOKEN }}
+          username: ${{ secrets.F1_USERNAME }}
+          password: ${{ secrets.F1_PASSWORD }}
+
       - name: Configure Git
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Route FastF1 traffic through phone exit node
+        uses: ./.github/actions/tailscale-exit-node
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          exit-node: ${{ secrets.TS_EXIT_NODE }}
+
       - name: Run Telemetry Extraction
-        run: python telR.py
+        run: python R.py
         env:
           GITHUB_ACTIONS: "true"
 
@@ -65,7 +82,7 @@ jobs:
           
           # Check if there are staged changes
           if ! git diff --cached --quiet; then
-              git commit -m "Update F1 telemetry data [skip ci]"
+              git commit -m "Update F1 telemetry data"
               git push origin main
           else
               echo "No changes to commit"
